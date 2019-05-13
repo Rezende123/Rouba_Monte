@@ -6,7 +6,13 @@
 int main()
 {
    tMount *pack = generatePack();
-   generateDeck(pack);
+   printf("\n\n=====MONTE INICIAL=======\n");
+   showMount(pack);
+
+   createCenaOfGame(pack);
+   
+   printf("\n\n=====MONTE FINAL=======\n");
+   showMount(pack);
 
    free(pack);
 }

@@ -3,6 +3,8 @@
         "list.h": "c",
         "stack.h": "c",
         "stdlib.h": "c",
-        "list.c": "cpp"
+        "list.c": "cpp",
+        "stdio.h": "c",
+        "time.h": "c"
     }
 }

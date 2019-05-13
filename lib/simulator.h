@@ -14,5 +14,7 @@ tCard *lotteryCards(tMount *mount);
 tPlayer *createPlayer(char name[20]);
 tMount *generatePack();
 tMount *generateDeck(tMount *pack);
+void createCenaOfGame(tMount *pack);
+
 
 #endif

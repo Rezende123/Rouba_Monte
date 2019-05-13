@@ -3,11 +3,18 @@
 #include <time.h>//necessário p/ função time()
 #include "simulator.h"
 
+int random(int range) {
+    time_t t;
+
+	srand((unsigned)(time(NULL)));
+    return rand() % range;
+}
+
 tCard *lotteryCards(tMount *mount) {
     int range = mount->numberElement;
+    int swiched = random(range);
 
-    srand(time(0));
-    int swiched = rand() % range;
+    printf("[%d]", swiched);
 
     if (mount->init == NULL) {
         return NULL;
@@ -16,6 +23,7 @@ tCard *lotteryCards(tMount *mount) {
 
     card_lottery = extractCardForIndex(card_lottery, swiched);
 
+    mount->numberElement--;
     // printf("[FINAL] %d\n", card_lottery->typeCard);
     return card_lottery;
 };
@@ -43,7 +51,6 @@ tMount *generateDeck(tMount *pack) {
         tCard *card = lotteryCards(pack);
         addCard(deck, card->typeCard, card->naipe);    
     }
-    showMount(deck);
 
     return deck;
 }
@@ -57,6 +64,26 @@ tPlayer *createPlayer(char name[20]) {
     return player;
 }
 
-void playGame(tPlayer *players[4], tMount *mount) {
-    
+void showPlayers(tPlayer *players) {
+    for (int i = 0; i < 4; i++)
+    {
+        printf("============\n");
+        printf("JOGADOR: %s\n", players[i].name);
+        printf("DECK: \n");
+        showMount(players[i].deck);
+        printf("============\n");
+    }
+}
+
+void createCenaOfGame(tMount *pack) {
+    int amountPlayers = 4;
+    tPlayer *players = malloc(sizeof(tPlayer) * amountPlayers);
+
+    for (int i = 0; i < amountPlayers; i++)
+    {
+        snprintf(players[i].name, 10, "Player %d", i);
+        players[i].deck = generateDeck(pack);
+    }
+
+    showPlayers(players);
 }
