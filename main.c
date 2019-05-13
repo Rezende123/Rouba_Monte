@@ -5,17 +5,8 @@
 
 int main()
 {
-   
-   // addCard(mount, 1, cups);
-   // addCard(mount, 2, gold);
-   // addCard(mount, 3, gold);
-   // addCard(mount, 4, wands);
-   // addCard(mount, 5, gold);
-   // addCard(mount, 6, gold);
+   tMount *pack = generatePack();
+   generateDeck(pack);
 
-   // showMount(mount);
-   // lotteryCards(mount);
-
-   generatePack();
-
+   free(pack);
 }
