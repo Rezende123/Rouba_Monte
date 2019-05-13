@@ -12,5 +12,6 @@ typedef struct Player
 
 tCard *lotteryCards(tMount *mount);
 tPlayer *createPlayer(char name[20]);
+tMount *generatePack();
 
 #endif

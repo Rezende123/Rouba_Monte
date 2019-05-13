@@ -14,7 +14,7 @@ enum TypeCard {
 
 typedef struct card
 {
-    char value[20];
+    enum TypeCard typeCard;
     enum Naipe naipe;
     struct card *next;
 } tCard;
@@ -25,12 +25,12 @@ typedef struct Mount
    int numberElement;
 } tMount;
 
-tCard *createCard(char value[20], enum Naipe naipe);
+tCard *createCard(enum TypeCard typeCard, enum Naipe naipe);
 tMount *createMount();
 void showMount(tMount *mount);
-int searchMountItem(tMount *mount, char searchValue[20]);
-int deleteMountItem(tMount *mount, char searchValue[20]);
-int addCard(tMount *mount, char value[20], enum Naipe naipe);
+int searchMountItem(tMount *mount, enum TypeCard searchValue);
+int deleteMountItem(tMount *mount, enum TypeCard searchValue);
+int addCard(tMount *mount, enum TypeCard typeCard, enum Naipe naipe);
 tCard *getCardForIndex(tCard *card_current, int index);
 
 #endif

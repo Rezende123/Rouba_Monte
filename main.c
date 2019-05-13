@@ -5,19 +5,17 @@
 
 int main()
 {
-   tMount *mount = createMount();
+   
+   // addCard(mount, 1, cups);
+   // addCard(mount, 2, gold);
+   // addCard(mount, 3, gold);
+   // addCard(mount, 4, wands);
+   // addCard(mount, 5, gold);
+   // addCard(mount, 6, gold);
 
-   addCard(mount, "A", cups);
-   addCard(mount, "J", gold);
-   addCard(mount, "Q", gold);
-   addCard(mount, "K", wands);
-   addCard(mount, "CORINGA", gold);
-   addCard(mount, "10", gold);
+   // showMount(mount);
+   // lotteryCards(mount);
 
-   showMount(mount);
-   lotteryCards(mount);
+   generatePack();
 
-   distributeCards();
-
-   free(mount);
 }

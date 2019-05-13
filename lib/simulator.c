@@ -13,17 +13,21 @@ tCard *lotteryCards(tMount *mount) {
 
     card_lottery = extractCardForIndex(card_lottery, swiched);
 
-    printf("[FINAL] %s\n", card_lottery->value);
+    printf("[FINAL] %d\n", card_lottery->typeCard);
     return card_lottery;
 };
 
-tMount *distributeCards() {
+tMount *generatePack() {
     tMount *deck = createMount();
 
-    for (int i = 0; i < 12; i++)
+    for (int j = 0; j < 4; j++)
     {
-        addCard(deck, "A", wands);
-    };
+        for (int i = 0; i < 12; i++)
+        {
+            addCard(deck, i, j);
+        };
+    }
+    
     
     showMount(deck);
 }
