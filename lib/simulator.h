@@ -16,6 +16,7 @@ tMount *generatePack();
 tMount *generateDeck(tMount *pack);
 tPlayer *agroupPlayersAndCards(tMount *pack);
 void game(tMount *pack, tMount *mount, tPlayer *players);
+void searchCardsInMount(tMount *mount, tPlayer *players);
 
 
 #endif

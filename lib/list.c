@@ -119,17 +119,21 @@ int addCard(tMount *mount, enum TypeCard typeCard, enum Naipe naipe) {
    return 1;
 }
 
-int concatMount(tMount *mount_first, tMount *mount_last) {
-   tCard *card_current = mount_first->init;
-   
-   while(card_current != NULL){
-      card_current = card_current->next;
-   }
+tMount *concatMount(tMount *mount_first, tMount *mount_last) {
+   if (mount_first->init == NULL) {
+      mount_first = mount_last;
+   } else {
+      tCard *card_current = mount_first->init;
+      
+      while(card_current->next != NULL){
+         card_current = card_current->next;
+      }
 
-   card_current = mount_last->init;
-   printf("LAST = %d", mount_last->numberElement);
-   mount_first->numberElement += mount_last->numberElement;
-   printf("first = %d", mount_first->numberElement);
+      card_current->next = mount_last->init;
+      mount_first->numberElement += mount_last->numberElement;
+   }
+   
+   return mount_first;
 }
 
 tCard *extractCardForIndex(tCard *card_current, int index) {
@@ -158,11 +162,10 @@ tMount *searchMountsForMyDeck(tMount *deck, tMount *mount_table) {
 
       tMount *current_mount = searchCardsInMountForType(mount_table, card_current->typeCard);
       if (current_mount->init != NULL) {
-         concatMount(mount, current_mount);
+         mount = concatMount(mount, current_mount);
       }
       
       card_current = card_current->next;
    }
-   printf("\nEXIT\n");
-   concatMount(deck, mount);
+   deck = concatMount(deck, mount);
 }

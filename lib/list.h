@@ -29,6 +29,7 @@ tCard *createCard(enum TypeCard typeCard, enum Naipe naipe);
 tMount *createMount();
 void showMount(tMount *mount);
 tMount *searchMountsForMyDeck(tMount *deck, tMount *mount_table);
+tMount *concatMount(tMount *mount_first, tMount *mount_last);
 
 int countCardsInMountForType(tMount *mount, enum TypeCard searchValue);
 int deleteInMountForType(tMount *mount, enum TypeCard searchValue);

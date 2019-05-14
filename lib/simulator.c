@@ -87,21 +87,20 @@ tPlayer *agroupPlayersAndCards(tMount *pack) {
 }
 
 void game(tMount *pack, tMount *mount, tPlayer *players) {
+    searchCardsInMount(mount, players);
+}
+
+void searchCardsInMount(tMount *mount, tPlayer *players) {
     int amountPlayers = 4;
-
-    while (pack->numberElement != 0)
-    {        
-        for (int i = 0; i < amountPlayers; i++)
-        {
-           printf("\n\n=========%s=========\n", players[i].name);
-           printf("\n\n[DECK]\n");
-           showMount(players[i].deck);
-           printf("\n\n[JOGO]\n");
-           searchMountsForMyDeck(players[i].deck, mount);
-           printf("\n==========================\n");
-
-
-            pack->numberElement--; //SÓ PARA O LOOP NÃO SER INFINITO
-        }
-    }    
+    for (int i = 0; i < amountPlayers; i++)
+    {
+        printf("\n\n=========%s=========\n", players[i].name);
+        printf("\n\n[DECK]\n");
+        showMount(players[i].deck);
+        printf("\n\n[JOGO]\n");
+        searchMountsForMyDeck(players[i].deck, mount);
+        printf("\n==========================\n");
+    }  
+   printf("\n\n=====JOGADORES=======\n");
+   showPlayers(players);
 }
