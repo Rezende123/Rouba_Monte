@@ -35,18 +35,48 @@ void showMount(tMount *mount) {
    }
 }
 
-int searchMountItem(tMount *mount, enum TypeCard searchValue) {
+int countCardsInMountForType(tMount *mount, enum TypeCard searchValue) {
+   int amountCards = 0;
+   
+   if (mount == NULL) return 0;
+
    tCard *card_current = mount->init;
    
    while(card_current->next != NULL || card_current->typeCard == searchValue){
+      if (card_current->typeCard == searchValue) {
+         amountCards++;
+      }      
       card_current = card_current->next;
    }
 
-   if (card_current->typeCard == searchValue) return 1;
-   return 0;
+   return amountCards;
 }
 
-int deleteMountItem(tMount *mount,  enum TypeCard searchValue) {
+tMount *searchCardsInMountForType(tMount *mount, enum TypeCard searchValue) {
+   if (mount == NULL) return NULL;
+   
+   tMount *deck = createMount();
+   tCard *card_current = mount->init;
+   tCard *card_last;
+   
+   while(card_current != NULL){
+      if (card_current->typeCard == searchValue) {
+         printf("\n [ACHOU] - %d ", card_current->typeCard);
+
+         addCard(deck, card_current->typeCard, card_current->naipe);
+         card_last->next = card_current->next;
+      } else {
+         printf("\n [FALSO] - %d ", card_current->typeCard);
+
+         card_last = card_current;
+      }
+      card_current = card_current->next;
+   }
+
+   return deck;
+}
+
+int deleteInMountForType(tMount *mount,  enum TypeCard searchValue) {
    if (mount == NULL || mount->init == NULL) return 0;
    
    tCard *card_current = mount->init, *Card_last;
@@ -89,6 +119,19 @@ int addCard(tMount *mount, enum TypeCard typeCard, enum Naipe naipe) {
    return 1;
 }
 
+int concatMount(tMount *mount_first, tMount *mount_last) {
+   tCard *card_current = mount_first->init;
+   
+   while(card_current != NULL){
+      card_current = card_current->next;
+   }
+
+   card_current = mount_last->init;
+   printf("LAST = %d", mount_last->numberElement);
+   mount_first->numberElement += mount_last->numberElement;
+   printf("first = %d", mount_first->numberElement);
+}
+
 tCard *extractCardForIndex(tCard *card_current, int index) {
    tCard *card_last;
    for (int i = 0; i <= index; i++)
@@ -106,3 +149,20 @@ tCard *extractCardForIndex(tCard *card_current, int index) {
    return card_current;
 }
 
+tMount *searchMountsForMyDeck(tMount *deck, tMount *mount_table) {
+   tCard *card_current = deck->init;
+   tMount *mount = createMount();
+   
+   while(card_current != NULL){
+      printf("\n\n[BUSCA] - %d", card_current->typeCard);
+
+      tMount *current_mount = searchCardsInMountForType(mount_table, card_current->typeCard);
+      if (current_mount->init != NULL) {
+         concatMount(mount, current_mount);
+      }
+      
+      card_current = card_current->next;
+   }
+   printf("\nEXIT\n");
+   concatMount(deck, mount);
+}

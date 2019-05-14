@@ -28,8 +28,10 @@ typedef struct Mount
 tCard *createCard(enum TypeCard typeCard, enum Naipe naipe);
 tMount *createMount();
 void showMount(tMount *mount);
-int searchMountItem(tMount *mount, enum TypeCard searchValue);
-int deleteMountItem(tMount *mount, enum TypeCard searchValue);
+tMount *searchMountsForMyDeck(tMount *deck, tMount *mount_table);
+
+int countCardsInMountForType(tMount *mount, enum TypeCard searchValue);
+int deleteInMountForType(tMount *mount, enum TypeCard searchValue);
 int addCard(tMount *mount, enum TypeCard typeCard, enum Naipe naipe);
 tCard *getCardForIndex(tCard *card_current, int index);
 

@@ -14,8 +14,6 @@ tCard *lotteryCards(tMount *mount) {
     int range = mount->numberElement;
     int swiched = random(range);
 
-    printf("[%d]", swiched);
-
     if (mount->init == NULL) {
         return NULL;
     }
@@ -43,10 +41,10 @@ tMount *generatePack() {
     return pack;
 }
 
-tMount *generateDeck(tMount *pack) {
+tMount *generateMount(tMount *pack, int size) {
     tMount *deck = createMount();
 
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < size; i++)
     {
         tCard *card = lotteryCards(pack);
         addCard(deck, card->typeCard, card->naipe);    
@@ -75,15 +73,35 @@ void showPlayers(tPlayer *players) {
     }
 }
 
-void createCenaOfGame(tMount *pack) {
+tPlayer *agroupPlayersAndCards(tMount *pack) {
     int amountPlayers = 4;
     tPlayer *players = malloc(sizeof(tPlayer) * amountPlayers);
 
     for (int i = 0; i < amountPlayers; i++)
     {
         snprintf(players[i].name, 10, "Player %d", i);
-        players[i].deck = generateDeck(pack);
+        players[i].deck = generateMount(pack, 4);
     }
 
-    showPlayers(players);
+    return players;
+}
+
+void game(tMount *pack, tMount *mount, tPlayer *players) {
+    int amountPlayers = 4;
+
+    while (pack->numberElement != 0)
+    {        
+        for (int i = 0; i < amountPlayers; i++)
+        {
+           printf("\n\n=========%s=========\n", players[i].name);
+           printf("\n\n[DECK]\n");
+           showMount(players[i].deck);
+           printf("\n\n[JOGO]\n");
+           searchMountsForMyDeck(players[i].deck, mount);
+           printf("\n==========================\n");
+
+
+            pack->numberElement--; //SÓ PARA O LOOP NÃO SER INFINITO
+        }
+    }    
 }
