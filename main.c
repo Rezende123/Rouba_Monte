@@ -9,9 +9,9 @@ int main()
    // printf("\n\n=====MONTE INICIAL=======\n");
    // showMount(pack);
 
-   // printf("\n\n=====JOGADORES=======\n");
+   printf("\n\n=====JOGADORES=======\n");
    tPlayer *players = agroupPlayersAndCards(pack);
-   // showPlayers(players);
+   showPlayers(players);
 
    printf("\n\n=====MONTE MESA=======\n");
    tMount *mount = generateMount(pack, 6);

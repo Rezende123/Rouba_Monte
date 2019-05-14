@@ -1,14 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>//necessário p/ função time()
 #include "simulator.h"
-
-int random(int range) {
-    time_t t;
-
-	srand((unsigned)(time(NULL)));
-    return rand() % range;
-}
 
 tCard *lotteryCards(tMount *mount) {
     int range = mount->numberElement;
@@ -17,9 +9,7 @@ tCard *lotteryCards(tMount *mount) {
     if (mount->init == NULL) {
         return NULL;
     }
-    tCard *card_lottery = mount->init;
-
-    card_lottery = extractCardForIndex(card_lottery, swiched);
+    tCard *card_lottery = extractCardForIndexRandom(mount);
 
     mount->numberElement--;
     // printf("[FINAL] %d\n", card_lottery->typeCard);
@@ -95,10 +85,14 @@ void searchCardsInMount(tMount *mount, tPlayer *players) {
     for (int i = 0; i < amountPlayers; i++)
     {
         printf("\n\n=========%s=========\n", players[i].name);
+        printf("\n\n[JOGO]\n");
+        int hasCardChanged = searchMountsForMyDeck(players[i].deck, mount);
+        if (hasCardChanged == 0) {
+            tCard *cardExtracted = extractCardForIndexRandom(players[i].deck);
+            addCard(mount, cardExtracted->typeCard, cardExtracted->naipe);
+        }
         printf("\n\n[DECK]\n");
         showMount(players[i].deck);
-        printf("\n\n[JOGO]\n");
-        searchMountsForMyDeck(players[i].deck, mount);
         printf("\n==========================\n");
     }  
    printf("\n\n=====JOGADORES=======\n");

@@ -1,9 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>//necessário p/ função time()
 #include "list.h"
 
 // FELIPE REZENDE
+
+int random(int range) {
+    time_t t;
+
+	srand((unsigned)(time(NULL)));
+    return rand() % range;
+}
 
 tCard *createCard(enum TypeCard typeCard, enum Naipe naipe) {
    tCard *_card;
@@ -136,7 +144,11 @@ tMount *concatMount(tMount *mount_first, tMount *mount_last) {
    return mount_first;
 }
 
-tCard *extractCardForIndex(tCard *card_current, int index) {
+tCard *extractCardForIndexRandom(tMount *mount) {
+   int range = mount->numberElement;
+   int index = random(range);
+
+   tCard *card_current = mount->init;
    tCard *card_last;
    for (int i = 0; i <= index; i++)
    {
@@ -153,7 +165,7 @@ tCard *extractCardForIndex(tCard *card_current, int index) {
    return card_current;
 }
 
-tMount *searchMountsForMyDeck(tMount *deck, tMount *mount_table) {
+int searchMountsForMyDeck(tMount *deck, tMount *mount_table) {
    tCard *card_current = deck->init;
    tMount *mount = createMount();
    
@@ -167,5 +179,12 @@ tMount *searchMountsForMyDeck(tMount *deck, tMount *mount_table) {
       
       card_current = card_current->next;
    }
-   deck = concatMount(deck, mount);
+   if (mount->numberElement == 0) {
+      return 0;
+   } else
+   {
+      deck = concatMount(deck, mount);
+      return 1;
+   }
+   
 }
